@@ -41,7 +41,7 @@ function App() {
                 <div className="fixed bottom-10 right-20  px-4 py-3 flex space-x-3">
                   <button
                     onClick={handleDraftForm}
-                    className="px-5 py-1.5 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 text-sm font-medium"
+                    className="px-10 py-1.5 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 text-sm font-medium"
                   >
                     Draft
                   </button>
