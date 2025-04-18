@@ -102,7 +102,9 @@ export const FieldItem = ({
       style={style}
       {...listeners}
       {...attributes}
-      className={`field-item flex items-center p-4 my-4 bg-white rounded-lg border-gray-200 cursor-grab hover:bg-gray-50`}
+      className={`field-item flex items-center p-4 my-4 bg-white rounded-lg border border-gray-200 cursor-grab hover:bg-gray-50 ${
+        isDragging ? "sticky z-[9999]" : ""
+      } ${isOverDropArea ? "bg-gray-50" : ""}`}
       onMouseDown={handleDragStart}
       onMouseUp={handleDragEnd}
       onMouseMove={isDragging ? handleDragOver : undefined}

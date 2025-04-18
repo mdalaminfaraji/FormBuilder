@@ -1,6 +1,18 @@
 import { useDroppable } from "@dnd-kit/core";
-import { DndContext, closestCenter, MouseSensor, TouchSensor, useSensor, useSensors, DragEndEvent } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy, useSortable } from "@dnd-kit/sortable";
+import {
+  DndContext,
+  closestCenter,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  useSortable,
+} from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useFormBuilder } from "../store/FormBuilderContext";
 import { FieldSet, Field } from "../types";
@@ -12,14 +24,27 @@ interface FieldsetProps {
 }
 
 // Sortable Field component for drag and drop reordering
-const SortableField = ({ field, fieldsetId }: { field: Field; fieldsetId: string }) => {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+const SortableField = ({
+  field,
+  fieldsetId,
+}: {
+  field: Field;
+  fieldsetId: string;
+}) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
     id: field.id,
     data: {
-      type: 'field',
+      type: "field",
       field,
-      fieldsetId
-    }
+      fieldsetId,
+    },
   });
 
   const style = {
@@ -30,18 +55,21 @@ const SortableField = ({ field, fieldsetId }: { field: Field; fieldsetId: string
   };
 
   return (
-    <div 
-      ref={setNodeRef} 
+    <div
+      ref={setNodeRef}
       style={style}
-      className={`group relative mt-2 ${isDragging ? 'z-10' : ''}`}
+      className={`group relative mt-2 ${isDragging ? "z-10" : ""}`}
     >
       {/* Drag handle */}
-      <div 
-        {...attributes} 
+      <div
+        {...attributes}
         {...listeners}
         className="absolute left-1 top-1/2 -translate-y-1/2 opacity-50 group-hover:opacity-100 cursor-move"
       >
-        <MdDragIndicator size={24} className={`${isDragging ? 'text-blue-500' : 'text-gray-400'}`} />
+        <MdDragIndicator
+          size={24}
+          className={`${isDragging ? "text-blue-500" : "text-gray-400"}`}
+        />
       </div>
       <div className="pl-6">
         <FormField field={field} />
@@ -51,7 +79,8 @@ const SortableField = ({ field, fieldsetId }: { field: Field; fieldsetId: string
 };
 
 const Fieldset = ({ fieldset }: FieldsetProps) => {
-  const { updateFieldset, selectFieldset, reorderField, state } = useFormBuilder();
+  const { updateFieldset, selectFieldset, reorderField, state } =
+    useFormBuilder();
   const { selectedFieldsetId } = state;
 
   // Set up sensors for drag and drop
@@ -79,9 +108,13 @@ const Fieldset = ({ fieldset }: FieldsetProps) => {
     const { active, over } = event;
 
     if (over && active.id !== over.id) {
-      const oldIndex = fieldset.fields.findIndex(field => field.id === active.id);
-      const newIndex = fieldset.fields.findIndex(field => field.id === over.id);
-      
+      const oldIndex = fieldset.fields.findIndex(
+        (field) => field.id === active.id
+      );
+      const newIndex = fieldset.fields.findIndex(
+        (field) => field.id === over.id
+      );
+
       if (oldIndex !== -1 && newIndex !== -1) {
         reorderField(fieldset.id, oldIndex, newIndex);
       }
@@ -127,7 +160,7 @@ const Fieldset = ({ fieldset }: FieldsetProps) => {
       {/* Field-set content */}
       <div className="pt-5 pb-3 px-4">
         {fieldset.fields.length === 0 ? (
-          <div className="p-8 border-2 border-dashed border-gray-200 rounded-md text-center text-gray-400 text-sm">
+          <div className="p-8 border-2 border-dashed border-gray-200 rounded-md text-center text-gray-400 text-sm relative z-0">
             Drop fields here
           </div>
         ) : (
@@ -137,21 +170,21 @@ const Fieldset = ({ fieldset }: FieldsetProps) => {
             onDragEnd={handleDragEnd}
           >
             <SortableContext
-              items={fieldset.fields.map(field => field.id)}
+              items={fieldset.fields.map((field) => field.id)}
               strategy={verticalListSortingStrategy}
             >
               <div className="space-y-3">
                 {fieldset.fields.map((field) => (
-                  <SortableField 
-                    key={field.id} 
-                    field={field} 
-                    fieldsetId={fieldset.id} 
+                  <SortableField
+                    key={field.id}
+                    field={field}
+                    fieldsetId={fieldset.id}
                   />
                 ))}
 
                 {/* Drop area for new fields with dashed border */}
                 {isOver && (
-                  <div className="border-2 border-dashed border-rose-100 rounded-md p-4 flex items-center justify-center text-sm text-rose-300 bg-rose-50 bg-opacity-30">
+                  <div className="border-2 border-dashed border-rose-100 rounded-md p-4 flex items-center justify-center text-sm text-rose-300 bg-rose-50 bg-opacity-30 relative z-0">
                     Drop field here
                   </div>
                 )}

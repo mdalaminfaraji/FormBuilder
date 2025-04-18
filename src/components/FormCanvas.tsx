@@ -6,12 +6,9 @@ const FormCanvas = () => {
   const { state } = useFormBuilder();
   const { form } = state;
 
-  const { setNodeRef, isOver } = useDroppable({
+  const { setNodeRef } = useDroppable({
     id: "form-canvas",
   });
-
-  // No demo data initialization - canvas starts empty
-  // Form elements will be added only through user drag and drop actions
 
   return (
     <div className="flex flex-col min-h-[97%] p-4 " ref={setNodeRef}>
@@ -34,11 +31,6 @@ const FormCanvas = () => {
           </div>
         )}
       </div>
-
-      {/* Invisible drop area indicator when dragging */}
-      {/* {isOver && (
-        <div className="absolute inset-0 bg-blue-100 bg-opacity-20 pointer-events-none border-2 border-blue-300 rounded" />
-      )} */}
     </div>
   );
 };
