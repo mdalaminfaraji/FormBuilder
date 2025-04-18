@@ -209,9 +209,7 @@ const FormField = ({ field }: FormFieldProps) => {
 
   return (
     <div
-      className={`relative p-2 border rounded-md flex bg-gray-50 ${
-        isSelected ? "border-blue-400" : "border-gray-200"
-      }`}
+      className={`relative p-2 border rounded-md flex bg-gray-50 border-gray-200`}
       onClick={handleFieldClick}
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
