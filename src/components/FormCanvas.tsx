@@ -27,7 +27,7 @@ const FormCanvas = () => {
             <p className="text-gray-500">create amazing forms.</p>
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-6 p-4 mt-4">
             {form.fieldsets.map((fieldset) => (
               <Fieldset key={fieldset.id} fieldset={fieldset} />
             ))}
