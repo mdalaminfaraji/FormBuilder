@@ -24,7 +24,7 @@ function App() {
 
           {/* Main content */}
           <main className="flex-1 container mx-auto p-4">
-            <div className="grid grid-cols-12 gap-4 h-[calc(100vh-10rem)]">
+            <div className="grid grid-cols-12 gap-4">
               {/* Left panel - Custom Field */}
               <div className="col-span-3">
                 <CustomFieldPanel />
@@ -36,29 +36,25 @@ function App() {
               </div>
 
               {/* Right panel - Field Properties */}
-              <div className="col-span-3">
+              <div className="col-span-3 relative">
                 <FieldProperties />
+                <div className="fixed bottom-10 right-20  px-4 py-3 flex space-x-3">
+                  <button
+                    onClick={handleDraftForm}
+                    className="px-5 py-1.5 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 text-sm font-medium"
+                  >
+                    Draft
+                  </button>
+                  <button
+                    onClick={handleSaveForm}
+                    className="px-5 py-1.5 bg-rose-500 text-white rounded-md hover:bg-rose-600 text-sm font-medium"
+                  >
+                    Save Form
+                  </button>
+                </div>
               </div>
             </div>
           </main>
-
-          {/* Footer */}
-          <footer>
-            <div className="container mx-auto px-4 py-3 flex justify-end space-x-3">
-              <button
-                onClick={handleDraftForm}
-                className="px-5 py-1.5 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 text-sm font-medium"
-              >
-                Draft
-              </button>
-              <button
-                onClick={handleSaveForm}
-                className="px-5 py-1.5 bg-rose-500 text-white rounded-md hover:bg-rose-600 text-sm font-medium"
-              >
-                Save Form
-              </button>
-            </div>
-          </footer>
         </div>
       </DragAndDropContext>
     </FormBuilderProvider>
