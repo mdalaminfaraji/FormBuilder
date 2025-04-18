@@ -35,7 +35,7 @@ export const FieldItem = ({ type, label, icon }: FieldItemProps) => {
       style={style}
       {...listeners}
       {...attributes}
-      className="flex items-center p-4 my-4 bg-white rounded-md border border-gray-200 cursor-grab hover:bg-gray-50"
+      className="flex items-center p-4 my-4 bg-white rounded-lg border border-gray-200 cursor-grab hover:bg-gray-50"
     >
       <div className="w-5 h-5 mr-2 text-gray-500">{icon}</div>
       <span className="text-sm">{label}</span>
@@ -99,11 +99,9 @@ const CustomFieldPanel = () => {
   ] as const;
 
   return (
-    <div className="h-full bg-gray-100 rounded-md shadow-sm">
-      <h2 className="p-4 text-lg font-semibold border-b border-gray-200">
-        Custom Field
-      </h2>
-      <div className="px-4 pb-4">
+    <div className="h-full bg-gray-100 rounded-md ">
+      <h2 className="px-4 pt-4 text-lg font-semibold ">Custom Field</h2>
+      <div className=" pb-4">
         {fieldTypes.map((field) => (
           <FieldItem
             key={field.type}

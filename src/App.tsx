@@ -31,19 +31,19 @@ function App() {
               </div>
 
               {/* Center panel - Form Canvas */}
-              <div className="col-span-5">
+              <div className="col-span-6">
                 <FormCanvas />
               </div>
 
               {/* Right panel - Field Properties */}
-              <div className="col-span-4">
+              <div className="col-span-3">
                 <FieldProperties />
               </div>
             </div>
           </main>
 
           {/* Footer */}
-          <footer className="bg-white shadow-md">
+          <footer>
             <div className="container mx-auto px-4 py-3 flex justify-end space-x-3">
               <button
                 onClick={handleDraftForm}
