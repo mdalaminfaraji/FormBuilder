@@ -37,7 +37,7 @@ const Fieldset = ({ fieldset }: FieldsetProps) => {
       className={`relative border rounded-lg ${
         isSelected ? "border-blue-400" : "border-gray-200"
       } 
-                 ${isOver ? "bg-blue-50" : "bg-white"} mb-4`}
+                 ${isOver ? "bg-blue-50" : "bg-white"}`}
       onClick={handleClick}
     >
       {/* Field-set name as legend */}
