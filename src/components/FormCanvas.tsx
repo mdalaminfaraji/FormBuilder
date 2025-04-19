@@ -15,7 +15,7 @@ const FormCanvas = () => {
       <h2 className="mb-4 text-lg font-semibold ">Your Module</h2>
 
       <div className="flex-1 overflow-auto bg-white rounded-lg">
-        {form.fieldsets.length === 0 ? (
+        {form?.fieldsets?.length === 0 ? (
           <div className="flex flex-col mt-44 items-center justify-center h-full text-center p-8">
             <img src="/builder.png" alt="Logo" className="w-11 h-11 " />
             <p className="text-gray-500 mb-2 mt-3">
@@ -25,7 +25,7 @@ const FormCanvas = () => {
           </div>
         ) : (
           <div className="space-y-6 p-4 mt-4">
-            {form.fieldsets.map((fieldset) => (
+            {form?.fieldsets?.map((fieldset) => (
               <Fieldset key={fieldset.id} fieldset={fieldset} />
             ))}
           </div>
