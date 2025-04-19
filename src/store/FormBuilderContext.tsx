@@ -378,11 +378,29 @@ export const FormBuilderProvider = ({ children }: { children: ReactNode }) => {
       dispatch({ type: 'SET_ERROR', payload: { error: null } });
       
       const apiFormData = convertFormToApiFormat(state.form);
-      await apiSaveForm(apiFormData);
+      console.log('Sending form data to API:', apiFormData);
+      
+      const response = await apiSaveForm(apiFormData);
+      console.log('API save response:', response);
+      
+      // Optionally use the response to update the form
+      // This ensures the form is in sync with what's stored on the server
+      if (response) {
+        try {
+          const formState = convertApiDataToFormState(response);
+          if (formState && formState.fieldsets && formState.fieldsets.length > 0) {
+            dispatch({ type: 'IMPORT_FORM', payload: { form: formState } });
+            console.log('Form updated with server response');
+          }
+        } catch (parseError) {
+          console.error('Error parsing API response:', parseError);
+        }
+      }
       
       dispatch({ type: 'SET_LOADING', payload: { loading: false } });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      console.error('Error saving form:', error);
       dispatch({ type: 'SET_ERROR', payload: { error: errorMessage } });
       dispatch({ type: 'SET_LOADING', payload: { loading: false } });
     }

@@ -36,16 +36,32 @@ interface ApiFieldset {
 }
 interface ApiResponse {
   message: string;
-  your_respons: ApiFieldset[];
+  your_respons: ApiFieldset[] | string;
 }
 
 export const convertApiDataToFormState = (apiData: ApiResponse | ApiFieldset[]) => {
   console.log('API Data received:', apiData);
   
-  // Check if the data is an array (direct fieldsets) or has the response wrapper structure
-  const fieldsets = Array.isArray(apiData) 
-    ? apiData 
-    : apiData?.your_respons || [];
+  let fieldsets: ApiFieldset[] = [];
+  
+  // Handle different response formats
+  if (Array.isArray(apiData)) {
+    // Direct array of fieldsets
+    fieldsets = apiData;
+  } else if (apiData?.your_respons) {
+    if (typeof apiData.your_respons === 'string') {
+      // String that needs to be parsed as JSON
+      try {
+        fieldsets = JSON.parse(apiData.your_respons);
+        console.log('Parsed your_respons string into:', fieldsets);
+      } catch (error) {
+        console.error('Error parsing your_respons string:', error);
+      }
+    } else if (Array.isArray(apiData.your_respons)) {
+      // Already an array
+      fieldsets = apiData.your_respons;
+    }
+  }
   
   console.log('Fieldsets to process:', fieldsets);
   
