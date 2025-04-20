@@ -28,7 +28,7 @@ function FormActions() {
             className="px-5 py-2 bg-[#FF534F] text-white rounded-md hover:bg-[#ff694f] transition"
             disabled={loading}
           >
-            {loading ? "Loading..." : "Save From"}
+            {loading ? "Loading..." : "Save Form"}
           </button>
         </div>
       </div>

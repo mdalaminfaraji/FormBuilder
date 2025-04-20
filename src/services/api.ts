@@ -91,12 +91,14 @@ const mapFieldTypeToApiType = (fieldType: string): string => {
     "text-field": "text",
     "number-input": "number",
     "combo-box": "select",
+    "number-combo-box": "select",
     "radio-button": "radio",
-    checkbox: "checkbox",
-    datepicker: "date",
+    "checkbox": "checkbox",
+    "datepicker": "date",
     "text-area": "textarea",
   };
 
+  console.log(`Mapping internal field type '${fieldType}' to API type '${typeMap[fieldType] || fieldType}'`);
   return typeMap[fieldType] || fieldType;
 };
 
@@ -107,13 +109,14 @@ const mapApiTypeToFieldType = (apiType: string): FieldType => {
   const typeMap: Record<string, FieldType> = {
     text: "text-field",
     number: "number-input",
-    select: "combo-box",
+    select: "combo-box", // Default select to combo-box
     radio: "radio-button",
     checkbox: "checkbox",
     date: "datepicker",
     textarea: "text-area",
   };
 
+  console.log(`Mapping API field type '${apiType}' to internal type '${typeMap[apiType] || "text-field"}'`);
   // Default to text-field if type is not recognized
   return typeMap[apiType] || "text-field";
 };
@@ -126,8 +129,13 @@ const getFieldOptions = (field: Field) => {
     return "";
   }
 
-  if (field.type === "combo-box" || field.type === "radio-button") {
-    return field.options.map((opt: any) => opt.value);
+  // Handle all field types that have options
+  if (field.type === "combo-box" || 
+      field.type === "number-combo-box" || 
+      field.type === "radio-button" || 
+      field.type === "checkbox") {
+    console.log(`Getting options for ${field.type} field:`, field.options);
+    return field.options.map((opt) => opt.value);
   }
 
   return "";
@@ -137,21 +145,25 @@ const getFieldOptions = (field: Field) => {
  * Parse field options from API format to internal format
  */
 const parseFieldOptions = (field: ApiField) => {
-  console.log('Parsing options for field:', field.labelName, 'Options:', field.options);
+  console.log('Parsing options for field:', field.labelName, 'Type:', field.inputType, 'Options:', field.options);
   
   // Handle empty options
   if (!field.options || field.options === "") {
     return [];
   }
   
-  // Handle array options
-  if (Array.isArray(field.options)) {
+  // Handle array options for any field type that should have options
+  // This includes select (combo-box), radio, checkbox
+  if (Array.isArray(field.options) && 
+     (field.inputType === 'select' || field.inputType === 'radio' || field.inputType === 'checkbox')) {
     // Create unique IDs for each option
     const timestamp = Date.now();
-    return field.options.map((option: string, index: number) => ({
+    const parsedOptions = field.options.map((option: string, index: number) => ({
       id: `option-${timestamp}-${index}-${Math.random().toString(36).substring(2, 9)}`,
       value: option
     }));
+    console.log('Parsed options:', parsedOptions);
+    return parsedOptions;
   }
   
   console.warn('Unexpected options format:', field.options);
