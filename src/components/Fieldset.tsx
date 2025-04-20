@@ -184,7 +184,7 @@ const Fieldset = ({ fieldset }: FieldsetProps) => {
 
                 {/* Drop area for new fields with dashed border */}
                 {isOver && (
-                  <div className="border-2 border-dashed border-rose-100 rounded-md p-4 flex items-center justify-center text-sm text-rose-300 bg-rose-50 bg-opacity-30 relative z-0">
+                  <div className="border-2 border-dashed border-rose-400 rounded-md p-4 flex items-center justify-center text-sm text-rose-300 bg-rose-50 bg-opacity-30 relative z-0">
                     Drop field here
                   </div>
                 )}

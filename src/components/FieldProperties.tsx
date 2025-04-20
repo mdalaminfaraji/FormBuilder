@@ -169,6 +169,25 @@ const FieldProperties = () => {
           placeholder="Enter field name"
         />
       </div>
+      
+      {/* Placeholder input field for text-field, number-input, and text-area */}
+      {(selectedField.type === "text-field" || 
+        selectedField.type === "number-input" || 
+        selectedField.type === "text-area") && (
+        <div className="mb-3">
+          <label className="block mb-1 text-sm font-medium text-gray-700">
+            Placeholder Text
+          </label>
+          <input
+            type="text"
+            name="placeholder"
+            value={selectedField.placeholder || ""}
+            onChange={handleFieldUpdate}
+            className="w-full px-3 py-2 border border-gray-200 rounded-md text-sm"
+            placeholder="Enter placeholder text"
+          />
+        </div>
+      )}
 
       {/* <div className="mb-3">
         <label className="flex items-center">
